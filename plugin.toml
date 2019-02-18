@@ -1,0 +1,4 @@
+[plugin]
+description = "dokku plugin to attach docker's network"
+version = "1.0.0"
+[plugin.config]
