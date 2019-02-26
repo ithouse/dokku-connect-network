@@ -7,5 +7,8 @@ verify_app_name "$APP"
 if [[ -f "$CONNECT_NETWORK" ]]; then
   NETWORK_NAME=`cat $CONNECT_NETWORK`
   dokku_log_info1 "Attach the network $NETWORK_NAME to containers"
-  docker ps -f ancestor=$IMAGE -q | xargs -n1 docker network connect $NETWORK_NAME
+  for container_id in $(get_app_running_container_ids $APP)
+  do
+    docker network connect $NETWORK_NAME $container_id
+  done
 fi
